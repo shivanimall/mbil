@@ -1,0 +1,6 @@
+# Demo-conditioned model only.
+
+train_and_eval.train_fn = @train_mil_baseline
+train_and_eval.train_steps = 50000
+train_and_eval.batch_size = 100
+train_and_eval.outer_lr = 1e-3
