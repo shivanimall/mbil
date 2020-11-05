@@ -1,0 +1,6 @@
+run_meta_env.num_condition_trials = 1
+SavedModelPolicy.model_dir = '/home/adrian_cmu/watch_try_learn_toy/saved_model'  # TODO: Fill this in.
+PretrainedDemoPolicy.model_dir = '/home/adrian_cmu/watch_try_learn_toy/pretrained'  # TODO: Fill this in.
+run_meta_env.demo_policy = @PretrainedDemoPolicy()
+run_meta_env.trial_policy = @SavedModelPolicy()
+run_meta_env.inference_policy = @PretrainedDemoPolicy()

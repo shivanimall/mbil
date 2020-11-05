@@ -1,0 +1,9 @@
+# Goal is provided via context vector, learn dynamics from trial data.
+
+train_and_eval.train_steps = 50000
+train_and_eval.batch_size = 100
+train_and_eval.outer_lr = 1e-3
+train_and_eval.train_fn = @train_retrial_policy
+run_meta_env.num_condition_trials = 1
+env_eval.trial_policy = @SavedModelPolicy()
+SavedModelPolicy.model_dir = ''  # TODO: Fill this in.
