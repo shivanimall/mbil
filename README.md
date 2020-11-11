@@ -3,10 +3,10 @@
 
 Env set up using Dockerfile- 
 
-assumes nvidia drivers installed on host. use setup/dockerfile.
-docker build -t wtl-x:latest .
-sudo xhost +local:root
-docker run
+0. assumes nvidia drivers installed on host. use setup/dockerfile.
+1. docker build -t wtl-x:latest .
+2. sudo xhost +local:root
+3. docker run
 --rm
 -it
 --gpus all
@@ -15,5 +15,5 @@ docker run
 -e QT_X11_NO_MITSHM=1
 wtl-x
 bash
-alternatively, expose port and run using jupyter notebook
+4. alternatively, expose port and run using jupyter notebook
 
