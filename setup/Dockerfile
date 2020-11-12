@@ -37,11 +37,12 @@ RUN [[ "${ARCH}" = "ppc64le" ]] || { apt-get update && \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*; }
 
-# For CUDA profiling, TensorFlow requires CUPTI.
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+ENV MJC_PATH /.mujoco:$PATH
+ENV LD_LIBRARY_PATH /mujoco200/bin:$LD_LIBRARY_PATH
+ENV MUJOCO_PY_MUJOCO_PATH /mujoco200:$MJC_PATH
+ENV MUJOCO_PY_MJKEY_PATH /mjkey.txt:$MUJOCO_PY_MJKEY_PATH
 
-# Link the libcuda stub to the location where tensorflow is searching for it and reconfigure
-# dynamic linker run-time bindings
 RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 \
     && echo "/usr/local/cuda/lib64/stubs" > /etc/ld.so.conf.d/z-cuda-stubs.conf \
     && ldconfig
@@ -55,7 +56,8 @@ RUN mkdir /.mujoco
 COPY mujoco200.zip .
 COPY mjkey.txt .
 COPY Anaconda3-2020.07-Linux-x86_64.sh .
-COPY adrian_env.yml .
+COPY WTL_env.yml .
+
 
 # See http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
