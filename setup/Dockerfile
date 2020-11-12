@@ -58,6 +58,51 @@ COPY mjkey.txt .
 COPY Anaconda3-2020.07-Linux-x86_64.sh .
 COPY WTL_env.yml .
 
+RUN apt update
+RUN apt install -y --no-install-recommends \
+        git \
+        gnupg2 \
+        make \
+        cmake \
+        ffmpeg \
+        swig \
+        libz-dev \
+        unzip \
+        zlib1g-dev \
+        libglfw3 \
+        libglfw3-dev \
+        libxrandr2 \
+        libxinerama-dev \
+        libxi6 \
+        libxcursor-dev \
+        libgl1-mesa-dev \
+        libgl1-mesa-glx \
+        libglew-dev \
+        libosmesa6-dev \
+        lsb-release \
+        ack-grep \
+        patchelf \
+        wget \
+        xpra \
+        xserver-xorg-dev \
+        xvfb \
+        python-opengl \
+        ffmpeg
+
+# Dependencies for glvnd and X11.
+RUN apt-get update \
+  && apt-get install -y -qq --no-install-recommends \
+    libglvnd0 \
+    libgl1 \
+    libglx0 \
+    libegl1 \
+    libxext6 \
+    libx11-6 \
+  && rm -rf /var/lib/apt/lists/*
+  
+# Env vars for the nvidia-container-runtime.
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES graphics,utility,compute
 
 # See http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
